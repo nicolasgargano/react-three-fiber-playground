@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
 import {Canvas, MeshProps, useFrame} from '@react-three/fiber'
-import {Mesh} from "three";
+import {Mesh} from 'three'
 
 function Box(props: MeshProps) {
     // This reference will give us direct access to the mesh
@@ -27,7 +27,7 @@ function Box(props: MeshProps) {
     )
 }
 
-export const App = () =>
+export const App = (): JSX.Element =>
     <Canvas>
         <ambientLight intensity={0.5}/>
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1}/>
