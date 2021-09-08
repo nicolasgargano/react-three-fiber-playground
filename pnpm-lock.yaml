@@ -21,6 +21,7 @@ specifiers:
   leva: ^0.9.13
   mobx: ^6.3.3
   mobx-react: ^7.2.0
+  prando: ^6.0.1
   react: ^17.0.2
   react-dom: ^17.0.2
   sass: ^1.39.0
@@ -41,6 +42,7 @@ dependencies:
   leva: 0.9.13_react-dom@17.0.2+react@17.0.2
   mobx: 6.3.3
   mobx-react: 7.2.0_8aec6830c9f393111667240500a3b25c
+  prando: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   three: 0.132.2
@@ -2180,6 +2182,10 @@ packages:
 
   /potpack/1.0.1:
     resolution: {integrity: sha512-15vItUAbViaYrmaB/Pbw7z6qX2xENbFSTA7Ii4tgbPtasxm5v6ryKhKtL91tpWovDJzTiZqdwzhcFBCwiMVdVw==}
+    dev: false
+
+  /prando/6.0.1:
+    resolution: {integrity: sha512-ghUWxQ1T9IJmPu6eshc3VU0OwveUtXQ33ZLXYUcz1Oc5ppKLDXKp0TBDj6b0epwhEctzcQSNGR2iHyvQSn4W5A==}
     dev: false
 
   /prelude-ls/1.2.1:

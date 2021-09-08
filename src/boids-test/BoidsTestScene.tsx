@@ -26,7 +26,8 @@ import { AlignmentSystem } from './systems/AlignmentSystem'
 import { FlockmatesSystem } from './systems/FlockmatesSystem'
 import { WrappingSystem } from './systems/WrappingSystem'
 import { Vector3 } from 'three/src/math/Vector3'
-import { toVector3 } from './helpers'
+import { generateRandomStartingConditions, toVector3 } from './helpers'
+import { VectorObj } from 'leva/plugin'
 
 export const BoidsTestScene = (): JSX.Element => {
 
@@ -117,9 +118,12 @@ export const BoidsTestScene = (): JSX.Element => {
 
             {
                 pipe(
-                    evasionRays,
-                    array.takeLeft(30),
-                    array.mapWithIndex((i, r) => <BoidEntity key={`boid-${i}`} initialVelocity={toVector3(r.scale(4))} />)
+                    generateRandomStartingConditions(0, 30, 30),
+                    array.mapWithIndex((i, init) => <BoidEntity
+                        key={`boid-${i}`}
+                        initialPosition={init[0]}
+                        initialVelocity={init[1]}
+                    />)
                 )
             }
 
@@ -150,6 +154,7 @@ export const BoidsTestScene = (): JSX.Element => {
 // --
 
 type BoidProps = {
+    initialPosition: Vector3
     initialVelocity: Vector3
 }
 
@@ -160,7 +165,7 @@ const BoidEntity = forwardRef(function boidEntityFn(props: BoidProps, ref: Forwa
 
     return <Entity>
         <ThreeView>
-            <group ref={ref} dispose={null}>
+            <group ref={ref} dispose={null} position={props.initialPosition}>
                 <mesh castShadow receiveShadow geometry={geom}>
                     <meshPhongMaterial attach="material" color="white" wireframe />
                 </mesh>
