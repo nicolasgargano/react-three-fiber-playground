@@ -23,6 +23,9 @@ import { Acceleration, Boid, Velocity } from './facets'
 import { ResetAccelerationSystem } from './ResetAccelerationSystem'
 import { pipe } from 'fp-ts/function'
 import { array } from 'fp-ts'
+import { AlignmentSystem } from './AlignmentSystem'
+import { FlockmatesSystem } from './FlockmatesSystem'
+import { WrappingSystem } from './WrappingSystem'
 
 export const BoidsTestScene = (): JSX.Element => {
 
@@ -82,7 +85,7 @@ export const BoidsTestScene = (): JSX.Element => {
                 cannon.addBody(body)
             })
 
-        cannonDebugger(scene, cannon.bodies)
+        // cannonDebugger(scene, cannon.bodies)
     }, [cannon])
 
     useAnimationFrame((dt) => ECS.update(dt))
@@ -105,21 +108,24 @@ export const BoidsTestScene = (): JSX.Element => {
             {
                 pipe(
                     evasionRays,
-                    array.takeLeft(500),
+                    array.takeLeft(30),
                     array.mapWithIndex((i, r) => <BoidEntity key={`boid-${i}`} initialVelocity={r.scale(4)} />)
                 )
             }
 
             <ResetAccelerationSystem/>
-            <EvasionSystem
-                enabled={evasionControls.enabled}
-                weight={evasionControls.weight}
-                collisionDistance={evasionControls.collisionDistance}
-                amountOfRays={evasionControls.amountOfRays}
-            />
+            <FlockmatesSystem radius={100}/>
+            <AlignmentSystem weight={1}/>
+            {/*<EvasionSystem*/}
+            {/*    enabled={evasionControls.enabled}*/}
+            {/*    weight={evasionControls.weight}*/}
+            {/*    collisionDistance={evasionControls.collisionDistance}*/}
+            {/*    amountOfRays={evasionControls.amountOfRays}*/}
+            {/*/>*/}
             <MovementSystem
                 enabled={movementControls.enabled}
             />
+            <WrappingSystem size={20}/>
 
             {evasionRays.map((r, i) => <Line
                 key={`debub-ray-${i}`}
