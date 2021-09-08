@@ -29,6 +29,7 @@ import { Vector3 } from 'three/src/math/Vector3'
 import { generateRandomStartingConditions, toVector3 } from './helpers'
 import { VectorObj } from 'leva/plugin'
 import { settings } from './settings'
+import { GroupingSystem } from './systems/GroupingSystem'
 
 export const BoidsTestScene = (): JSX.Element => {
 
@@ -60,10 +61,15 @@ export const BoidsTestScene = (): JSX.Element => {
     })
 
     const flockmatesControl = useControls('Flockmates System', {
-        radius: 3
+        radius: 6
     })
 
     const alignmentControls = useControls('Alignment System', {
+        enabled: true,
+        weight: 1
+    })
+
+    const groupingControls = useControls('Grouping System', {
         enabled: true,
         weight: 1
     })
@@ -129,6 +135,7 @@ export const BoidsTestScene = (): JSX.Element => {
             <ResetAccelerationSystem/>
             <FlockmatesSystem radius={flockmatesControl.radius}/>
             <AlignmentSystem weight={alignmentControls.enabled ? alignmentControls.weight : 0}/>
+            <GroupingSystem weight={groupingControls.enabled ? groupingControls.weight : 0}/>
             {/*<EvasionSystem*/}
             {/*    enabled={evasionControls.enabled}*/}
             {/*    weight={evasionControls.weight}*/}
