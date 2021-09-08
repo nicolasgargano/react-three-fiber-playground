@@ -14,9 +14,8 @@ import { ThreeView } from '@react-ecs/three'
 import { Color, ConeBufferGeometry, SphereBufferGeometry} from 'three'
 import { GizmoHelper, GizmoViewport, Line, OrbitControls } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
-import cannonDebugger from 'cannon-es-debugger'
 import { useControls } from 'leva'
-import { evasionDirections, EvasionSystem } from './systems/EvasionSystem'
+import { evasionDirections } from './systems/EvasionSystem'
 import { MovementSystem } from './systems/MovementSystem'
 import { CannonContext } from './CannonContext'
 import { Acceleration, Boid, Velocity } from './facets'
@@ -52,6 +51,15 @@ export const BoidsTestScene = (): JSX.Element => {
             max: 300,
             step: 1,
         },
+    })
+
+    const flockmatesControl = useControls('Flockmates System', {
+        radius: 3
+    })
+
+    const alignmentControls = useControls('Alignment System', {
+        enabled: true,
+        weight: 1
     })
 
     const evasionRays = useMemo(() => {
@@ -114,8 +122,8 @@ export const BoidsTestScene = (): JSX.Element => {
             }
 
             <ResetAccelerationSystem/>
-            <FlockmatesSystem radius={100}/>
-            <AlignmentSystem weight={1}/>
+            <FlockmatesSystem radius={flockmatesControl.radius}/>
+            <AlignmentSystem weight={alignmentControls.enabled ? alignmentControls.weight : 0}/>
             {/*<EvasionSystem*/}
             {/*    enabled={evasionControls.enabled}*/}
             {/*    weight={evasionControls.weight}*/}
