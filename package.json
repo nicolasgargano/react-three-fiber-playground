@@ -10,10 +10,21 @@
   "author": "Nicolás Gargano",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@react-ecs/core": "^0.0.3",
+    "@react-ecs/three": "^0.0.3",
+    "@react-three/cannon": "^3.1.2",
+    "@react-three/drei": "^7.6.1",
     "@react-three/fiber": "^7.0.6",
+    "cannon-es": "^0.18.0",
+    "cannon-es-debugger": "^0.1.4",
+    "fp-ts": "^2.11.1",
+    "leva": "^0.9.13",
+    "mobx": "^6.3.3",
+    "mobx-react": "^7.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "three": "^0.132.2"
+    "three": "^0.132.2",
+    "tick-knock": "3.0.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.19",
