@@ -6,7 +6,7 @@ import * as Cannon from 'cannon-es'
 import { Acceleration, Boid, Velocity } from '../facets'
 import { CannonContext } from '../CannonContext'
 import { settings } from '../settings'
-import { capMagnitude, toVec3 } from '../helpers'
+import { toVec3, toVector3 } from '../helpers'
 
 export type EvasionSystemProps = {
   enabled: boolean
@@ -37,30 +37,25 @@ export const EvasionSystem: FC<EvasionSystemProps> = ({ enabled, weight, collisi
                 vec3Pos.clone().vadd(ray)
             )
 
-
-            const steerTo = (vec3: Vec3) => {
-                const steerForce = vec3
-                    .unit()
-                    .scale(settings.maxSpeed)
-                    .vsub(velocity)
-
-                return capMagnitude(steerForce, settings.maxSteerForce)
-            }
-
-            const gonnaCollide = rayCollides(velocity.clone().unit().scale(collisionDistance))
-
+            const gonnaCollide = rayCollides(toVec3(velocity.clone().normalize().multiplyScalar(collisionDistance)))
 
             if (gonnaCollide) {
                 // Get the rotation from the forward vector to the velocity (the boid forwards)
-                const rot = new Cannon.Quaternion().setFromVectors(Vec3.UNIT_Z, velocity)
+                const rot = new Cannon.Quaternion().setFromVectors(Vec3.UNIT_Z, toVec3(velocity))
 
                 for (const ray of evasionRays) {
                     // quaternion * vec is equivalent to rotating the vector by that quaternion
-                    const rotatedRay = rot.vmult(ray)
+                    const testRay = rot.vmult(ray)
 
-                    if (!rayCollides(rotatedRay)) {
-                        steerTo(rotatedRay).scale(weight)
-                            .vadd(acceleration, acceleration)
+                    if (!rayCollides(testRay)) {
+                        const steerForce =
+                          toVector3(testRay).normalize()
+                              .multiplyScalar(settings.maxSpeed)
+                              .sub(velocity)
+                              .clampLength(0, settings.maxSteerForce)
+
+                        const weightedSteerForce = steerForce.multiplyScalar(weight)
+                        acceleration.add(weightedSteerForce)
                         break
                     }
                 }

@@ -25,6 +25,8 @@ import { array } from 'fp-ts'
 import { AlignmentSystem } from './systems/AlignmentSystem'
 import { FlockmatesSystem } from './systems/FlockmatesSystem'
 import { WrappingSystem } from './systems/WrappingSystem'
+import { Vector3 } from 'three/src/math/Vector3'
+import { toVector3 } from './helpers'
 
 export const BoidsTestScene = (): JSX.Element => {
 
@@ -117,7 +119,7 @@ export const BoidsTestScene = (): JSX.Element => {
                 pipe(
                     evasionRays,
                     array.takeLeft(30),
-                    array.mapWithIndex((i, r) => <BoidEntity key={`boid-${i}`} initialVelocity={r.scale(4)} />)
+                    array.mapWithIndex((i, r) => <BoidEntity key={`boid-${i}`} initialVelocity={toVector3(r.scale(4))} />)
                 )
             }
 
@@ -148,7 +150,7 @@ export const BoidsTestScene = (): JSX.Element => {
 // --
 
 type BoidProps = {
-    initialVelocity: Vec3
+    initialVelocity: Vector3
 }
 
 const BoidEntity = forwardRef(function boidEntityFn(props: BoidProps, ref: ForwardedRef<ReactNode>) {
@@ -169,6 +171,6 @@ const BoidEntity = forwardRef(function boidEntityFn(props: BoidProps, ref: Forwa
         </ThreeView>
         <Boid/>
         <Velocity velocity={props.initialVelocity}/>
-        <Acceleration acceleration={new Vec3(0,0,0)}/>
+        <Acceleration acceleration={new Vector3(0,0,0)}/>
     </Entity>
 })

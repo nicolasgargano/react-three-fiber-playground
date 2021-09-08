@@ -1,5 +1,5 @@
 import { Facet } from '@react-ecs/core'
-import { Vec3 } from 'cannon-es'
+import { Vector3 } from 'three/src/math/Vector3'
 import { Entity } from 'tick-knock'
 
 export class Boid extends Facet<Boid> {
@@ -7,9 +7,9 @@ export class Boid extends Facet<Boid> {
 }
 
 export class Velocity extends Facet<Velocity> {
-  velocity = new Vec3(0,0,0)
+  velocity = new Vector3(0,0,0)
 }
 
 export class Acceleration extends Facet<Acceleration> {
-  acceleration = new Vec3(0,0,0)
+  acceleration = new Vector3(0,0,0)
 }
