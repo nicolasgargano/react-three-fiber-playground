@@ -6,7 +6,7 @@ import * as Cannon from 'cannon-es'
 import { Acceleration, Boid, Velocity } from './facets'
 import { CannonContext } from './CannonContext'
 import { settings } from './settings'
-import { toVec3 } from './helpers'
+import { capMagnitude, toVec3 } from './helpers'
 
 export type EvasionSystemProps = {
   enabled: boolean
@@ -37,10 +37,6 @@ export const EvasionSystem: FC<EvasionSystemProps> = ({ enabled, weight, collisi
                 vec3Pos.clone().vadd(ray)
             )
 
-            const capMagnitude = (vec3: Vec3, max: number) =>
-                vec3.length() > max
-                    ? vec3.clone().unit().scale(max)
-                    : vec3
 
             const steerTo = (vec3: Vec3) => {
                 const steerForce = vec3
