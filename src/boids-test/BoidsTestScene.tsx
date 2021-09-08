@@ -28,12 +28,15 @@ import { WrappingSystem } from './systems/WrappingSystem'
 import { Vector3 } from 'three/src/math/Vector3'
 import { generateRandomStartingConditions, toVector3 } from './helpers'
 import { VectorObj } from 'leva/plugin'
+import { settings } from './settings'
 
 export const BoidsTestScene = (): JSX.Element => {
 
     const ECS = useECS()
     const [cannon] = useState(() => new Cannon.World())
     const {scene} = useThree()
+    const [width, height, depth] = [settings.worldSize, settings.worldSize, settings.worldSize]
+    const thickness = 0.5
 
     const movementControls = useControls('Movement System', {
         enabled: true,
@@ -72,10 +75,6 @@ export const BoidsTestScene = (): JSX.Element => {
     }, [evasionControls.amountOfRays])
 
     useEffect(() => {
-
-        const [width, height, depth] = [30, 30, 30]
-        const thickness = 0.5
-
         const walls =
           [
               [new Vec3(0, height/2, 0), new Vec3(width/2, thickness, depth/2)],
@@ -118,7 +117,7 @@ export const BoidsTestScene = (): JSX.Element => {
 
             {
                 pipe(
-                    generateRandomStartingConditions(0, 30, 30),
+                    generateRandomStartingConditions(settings),
                     array.mapWithIndex((i, init) => <BoidEntity
                         key={`boid-${i}`}
                         initialPosition={init[0]}
@@ -139,7 +138,7 @@ export const BoidsTestScene = (): JSX.Element => {
             <MovementSystem
                 enabled={movementControls.enabled}
             />
-            <WrappingSystem size={20}/>
+            <WrappingSystem size={settings.worldSize}/>
 
             {evasionRays.map((r, i) => <Line
                 key={`debub-ray-${i}`}
