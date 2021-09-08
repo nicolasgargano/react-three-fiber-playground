@@ -16,16 +16,16 @@ import { GizmoHelper, GizmoViewport, Line, OrbitControls } from '@react-three/dr
 import { useThree } from '@react-three/fiber'
 import cannonDebugger from 'cannon-es-debugger'
 import { useControls } from 'leva'
-import { evasionDirections, EvasionSystem } from './EvasionSystem'
-import { MovementSystem } from './MovementSystem'
+import { evasionDirections, EvasionSystem } from './systems/EvasionSystem'
+import { MovementSystem } from './systems/MovementSystem'
 import { CannonContext } from './CannonContext'
 import { Acceleration, Boid, Velocity } from './facets'
-import { ResetAccelerationSystem } from './ResetAccelerationSystem'
+import { ResetAccelerationSystem } from './systems/ResetAccelerationSystem'
 import { pipe } from 'fp-ts/function'
 import { array } from 'fp-ts'
-import { AlignmentSystem } from './AlignmentSystem'
-import { FlockmatesSystem } from './FlockmatesSystem'
-import { WrappingSystem } from './WrappingSystem'
+import { AlignmentSystem } from './systems/AlignmentSystem'
+import { FlockmatesSystem } from './systems/FlockmatesSystem'
+import { WrappingSystem } from './systems/WrappingSystem'
 
 export const BoidsTestScene = (): JSX.Element => {
 

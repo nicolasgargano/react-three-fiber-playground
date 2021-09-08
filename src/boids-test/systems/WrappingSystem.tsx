@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ThreeView } from '@react-ecs/three'
-import { Boid } from './facets'
+import { Boid } from '../facets'
 import { useQuery, useSystem } from '@react-ecs/core'
 
 export type WrappingSystemProps = {

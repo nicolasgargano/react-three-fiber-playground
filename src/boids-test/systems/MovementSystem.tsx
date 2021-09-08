@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { useQuery, useSystem } from '@react-ecs/core'
 import { ThreeView } from '@react-ecs/three'
-import { Acceleration, Velocity } from './facets'
-import { toVector3 } from './helpers'
+import { Acceleration, Velocity } from '../facets'
+import { toVector3 } from '../helpers'
 
 export type MovementSystemProps = {
   enabled: boolean

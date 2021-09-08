@@ -3,10 +3,10 @@ import { useQuery, useSystem } from '@react-ecs/core'
 import { ThreeView } from '@react-ecs/three'
 import { Vec3 } from 'cannon-es'
 import * as Cannon from 'cannon-es'
-import { Acceleration, Boid, Velocity } from './facets'
-import { CannonContext } from './CannonContext'
-import { settings } from './settings'
-import { capMagnitude, toVec3 } from './helpers'
+import { Acceleration, Boid, Velocity } from '../facets'
+import { CannonContext } from '../CannonContext'
+import { settings } from '../settings'
+import { capMagnitude, toVec3 } from '../helpers'
 
 export type EvasionSystemProps = {
   enabled: boolean

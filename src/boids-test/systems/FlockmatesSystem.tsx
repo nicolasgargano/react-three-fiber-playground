@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useQuery, useSystem } from '@react-ecs/core'
 import { ThreeView } from '@react-ecs/three'
-import { Boid } from './facets'
+import { Boid } from '../facets'
 import { Entity } from 'tick-knock'
 
 export type FlockmatesSystemProps = {

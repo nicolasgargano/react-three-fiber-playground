@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { useQuery, useSystem } from '@react-ecs/core'
 import { ThreeView } from '@react-ecs/three'
-import { Acceleration, Boid, Velocity } from './facets'
+import { Acceleration, Boid, Velocity } from '../facets'
 import { Vec3 } from 'cannon-es'
-import { capMagnitudeMutable } from './helpers'
-import { settings } from './settings'
+import { capMagnitudeMutable } from '../helpers'
+import { settings } from '../settings'
 
 export type AlignmentSystemProps = {
   weight: number
