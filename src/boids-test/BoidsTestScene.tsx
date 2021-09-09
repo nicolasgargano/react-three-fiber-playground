@@ -15,7 +15,7 @@ import { Color, ConeBufferGeometry, SphereBufferGeometry} from 'three'
 import { GizmoHelper, GizmoViewport, Line, OrbitControls } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { evasionDirections } from './systems/EvasionSystem'
+import { evasionDirections, EvasionSystem } from './systems/EvasionSystem'
 import { MovementSystem } from './systems/MovementSystem'
 import { CannonContext } from './CannonContext'
 import { Acceleration, Boid, Velocity } from './facets'
@@ -30,14 +30,17 @@ import { generateRandomStartingConditions, toVector3 } from './helpers'
 import { VectorObj } from 'leva/plugin'
 import { settings } from './settings'
 import { GroupingSystem } from './systems/GroupingSystem'
+import { SeparationSystem } from './systems/SeparationSystem'
+import cannonDebugger from 'cannon-es-debugger'
+import { ClampVelocitySystem } from './systems/ClampVelocitySystem'
 
 export const BoidsTestScene = (): JSX.Element => {
 
     const ECS = useECS()
     const [cannon] = useState(() => new Cannon.World())
     const {scene} = useThree()
-    const [width, height, depth] = [settings.worldSize, settings.worldSize, settings.worldSize]
-    const thickness = 0.5
+    const size = settings.worldSize
+    const thickness = 1
 
     const movementControls = useControls('Movement System', {
         enabled: true,
@@ -47,7 +50,7 @@ export const BoidsTestScene = (): JSX.Element => {
         enabled: true,
         weight: 10,
         collisionDistance: {
-            value: 2,
+            value: 5,
             min: 1,
             max: 10,
             step: 1
@@ -61,7 +64,7 @@ export const BoidsTestScene = (): JSX.Element => {
     })
 
     const flockmatesControl = useControls('Flockmates System', {
-        radius: 6
+        radius: 2.5
     })
 
     const alignmentControls = useControls('Alignment System', {
@@ -74,21 +77,36 @@ export const BoidsTestScene = (): JSX.Element => {
         weight: 1
     })
 
+    const separationControls = useControls('Separation System', {
+        enabled: true,
+        weight: 1
+    })
+
+
     const evasionRays = useMemo(() => {
         console.log('Memo')
         return evasionDirections(evasionControls.amountOfRays)
             .map(vec3 => vec3.scale(1))
     }, [evasionControls.amountOfRays])
 
+    const boids = useMemo(() => pipe(
+        generateRandomStartingConditions(settings),
+        array.mapWithIndex((i, init) => <BoidEntity
+            key={`boid-${i}`}
+            initialPosition={init[0]}
+            initialVelocity={init[1]}
+        />)
+    ), [settings])
+
     useEffect(() => {
         const walls =
           [
-              [new Vec3(0, height/2, 0), new Vec3(width/2, thickness, depth/2)],
-              [new Vec3(0, -height/2, 0), new Vec3(width/2, thickness, depth/2)],
-              [new Vec3(width/2, 0, 0), new Vec3(thickness, height/2, depth/2)],
-              [new Vec3(-width/2, 0, 0), new Vec3(thickness, height/2, depth/2)],
-              [new Vec3(0, 0, depth/2), new Vec3(width/2, height/2, thickness)],
-              [new Vec3(0, 0, -depth/2), new Vec3(width/2, height/2, thickness)],
+              [new Vec3(0, size/2+thickness/2, 0), new Vec3(size/2+thickness, thickness/2, size/2+thickness)],
+              [new Vec3(0, -size/2-thickness/2, 0), new Vec3(size/2+thickness, thickness/2, size/2+thickness)],
+              [new Vec3(size/2+thickness/2, 0, 0), new Vec3(thickness/2, size/2+thickness, size/2+thickness)],
+              [new Vec3(-size/2-thickness/2, 0, 0), new Vec3(thickness/2, size/2+thickness, size/2+thickness)],
+              [new Vec3(0, 0, size/2+thickness/2), new Vec3(size/2+thickness, size/2+thickness, thickness/2)],
+              [new Vec3(0, 0, -size/2-thickness/2), new Vec3(size/2+thickness, size/2+thickness, thickness/2)],
           ]
 
         walls
@@ -101,7 +119,7 @@ export const BoidsTestScene = (): JSX.Element => {
                 cannon.addBody(body)
             })
 
-        // cannonDebugger(scene, cannon.bodies)
+        cannonDebugger(scene, cannon.bodies)
     }, [cannon])
 
     useAnimationFrame((dt) => ECS.update(dt))
@@ -121,27 +139,20 @@ export const BoidsTestScene = (): JSX.Element => {
                 <GizmoViewport axisColors={['red', 'green', 'blue']} labelColor="white" />
             </GizmoHelper>
 
-            {
-                pipe(
-                    generateRandomStartingConditions(settings),
-                    array.mapWithIndex((i, init) => <BoidEntity
-                        key={`boid-${i}`}
-                        initialPosition={init[0]}
-                        initialVelocity={init[1]}
-                    />)
-                )
-            }
+            {boids}
 
             <ResetAccelerationSystem/>
             <FlockmatesSystem radius={flockmatesControl.radius}/>
             <AlignmentSystem weight={alignmentControls.enabled ? alignmentControls.weight : 0}/>
             <GroupingSystem weight={groupingControls.enabled ? groupingControls.weight : 0}/>
-            {/*<EvasionSystem*/}
-            {/*    enabled={evasionControls.enabled}*/}
-            {/*    weight={evasionControls.weight}*/}
-            {/*    collisionDistance={evasionControls.collisionDistance}*/}
-            {/*    amountOfRays={evasionControls.amountOfRays}*/}
-            {/*/>*/}
+            <SeparationSystem weight={separationControls.enabled ? separationControls.weight : 0}/>
+            <EvasionSystem
+                enabled={evasionControls.enabled}
+                weight={evasionControls.weight}
+                collisionDistance={evasionControls.collisionDistance}
+                amountOfRays={evasionControls.amountOfRays}
+            />
+            <ClampVelocitySystem/>
             <MovementSystem
                 enabled={movementControls.enabled}
             />

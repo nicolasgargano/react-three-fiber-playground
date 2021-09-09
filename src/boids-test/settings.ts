@@ -11,8 +11,8 @@ export type Settings = {
 export const settings : Settings = {
     seed: 0,
     amountOfBoids: 70,
-    worldSize: 30,
-    minSpeed: 4,
-    maxSpeed: 12,
+    worldSize: 15,
+    minSpeed: 5,
+    maxSpeed: 5,
     maxSteerForce: 3
 }

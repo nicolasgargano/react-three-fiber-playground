@@ -10,9 +10,9 @@ export const toVector3 = (vec3: Vec3) : Vector3 => new Vector3(vec3.x, vec3.y, v
 export const generateRandomStartingConditions = (settings: Settings) : [Vector3, Vector3][] => {
     const rng = new Prando(settings.seed)
     return nonEmptyArray.range(1, settings.amountOfBoids).map(_ => {
-        const x = rng.next(-settings.worldSize, settings.worldSize)
-        const y = rng.next(-settings.worldSize, settings.worldSize)
-        const z = rng.next(-settings.worldSize, settings.worldSize)
+        const x = rng.next(-settings.worldSize / 2, settings.worldSize / 2)
+        const y = rng.next(-settings.worldSize / 2, settings.worldSize / 2)
+        const z = rng.next(-settings.worldSize / 2, settings.worldSize / 2)
         const pos = new Vector3(x,y,z)
 
         const vx = rng.next(-1, 1)

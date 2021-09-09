@@ -17,10 +17,8 @@ export type EvasionSystemProps = {
 
 export const EvasionSystem: FC<EvasionSystemProps> = ({ enabled, weight, collisionDistance, amountOfRays }) => {
 
-    const query = useQuery(e => e.hasAll(Boid, ThreeView, Velocity, Acceleration))
-
     const cannonWorld = useContext(CannonContext)
-
+    const query = useQuery(e => e.hasAll(Boid, ThreeView, Velocity, Acceleration))
 
     const evasionRays = useMemo(() => {
         return evasionDirections(amountOfRays)
