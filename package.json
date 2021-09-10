@@ -12,9 +12,11 @@
   "dependencies": {
     "@react-ecs/core": "^0.0.3",
     "@react-ecs/three": "^0.0.3",
+    "@react-spring/three": "^9.2.4",
     "@react-three/cannon": "^3.1.2",
     "@react-three/drei": "^7.6.1",
     "@react-three/fiber": "^7.0.6",
+    "@react-three/postprocessing": "^2.0.5",
     "cannon-es": "^0.18.0",
     "cannon-es-debugger": "^0.1.4",
     "fp-ts": "^2.11.1",
@@ -24,6 +26,7 @@
     "prando": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-spring": "^9.2.4",
     "three": "^0.132.2",
     "tick-knock": "3.0.1"
   },

@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react'
 import {Canvas, MeshProps, useFrame} from '@react-three/fiber'
 import {Mesh} from 'three'
 import { BoidsTestScene } from './boids-test/BoidsTestScene'
+import { StarsScene } from './spring-test/StarsScene'
 
 function Box(props: MeshProps) {
     // This reference will give us direct access to the mesh
@@ -30,5 +31,6 @@ function Box(props: MeshProps) {
 
 export const App = (): JSX.Element =>
     <Canvas>
-        <BoidsTestScene/>
+        {/*<BoidsTestScene/>*/}
+        <StarsScene/>
     </Canvas>
