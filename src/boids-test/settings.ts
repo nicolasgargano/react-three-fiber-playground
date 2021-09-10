@@ -12,7 +12,7 @@ export const settings : Settings = {
     seed: 0,
     amountOfBoids: 70,
     worldSize: 15,
-    minSpeed: 5,
+    minSpeed: 2,
     maxSpeed: 5,
     maxSteerForce: 3
 }
