@@ -23,6 +23,7 @@ specifiers:
   leva: ^0.9.13
   mobx: ^6.3.3
   mobx-react: ^7.2.0
+  postprocessing: ^6.22.5
   prando: ^6.0.1
   react: ^17.0.2
   react-dom: ^17.0.2
@@ -47,6 +48,7 @@ dependencies:
   leva: 0.9.13_react-dom@17.0.2+react@17.0.2
   mobx: 6.3.3
   mobx-react: 7.2.0_8aec6830c9f393111667240500a3b25c
+  postprocessing: 6.22.5_three@0.132.2
   prando: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
