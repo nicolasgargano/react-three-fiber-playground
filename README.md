@@ -12,3 +12,7 @@ A version of boids based on the work of Craig Reynolds:
 ## Stars
 
 Diving into camera controls with a space map
+
+## Shaders
+
+Just seeing how shaders work with three
