@@ -6,9 +6,7 @@ import { BoidsTestScene } from "./boids-test/BoidsTestScene"
 import { HomeScene } from "./home/HomeScene"
 
 export const App = (): JSX.Element => (
-  <div>
-    <div>aasdsads</div>
-
+  <>
     <Route path={"/"}>
       <HomeScene />
     </Route>
@@ -20,5 +18,5 @@ export const App = (): JSX.Element => (
     <Route path="/stars">
       <StarsScene />
     </Route>
-  </div>
+  </>
 )
