@@ -54,7 +54,6 @@ const Scene: FC<RocketsProps> = ({
       <EffectComposer multisampling={0}>
         <Pixelation granularity={5} />
       </EffectComposer>
-      <Stats />
     </Canvas>
   )
 }
