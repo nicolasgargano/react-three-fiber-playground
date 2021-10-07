@@ -48,9 +48,9 @@ const Scene: FC<RocketsProps> = ({
             speed={speed}
           />
         ))}
+        <Astronaut position={[0, 0, -10]} />
+        <Environment preset="sunset" />
       </Suspense>
-      <Astronaut position={[0, 0, -10]} />
-      <Environment preset="sunset" />
       <EffectComposer multisampling={0}>
         <Pixelation granularity={5} />
       </EffectComposer>
